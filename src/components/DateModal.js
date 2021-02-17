@@ -4,7 +4,7 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 
 import tripService from '../services/tripService';
 
-export default function DateModal({setAllTrips}) {
+export default function DateModal({setAllTrips, traveler}) {
     const [show, setShow] = useState(false);
     const [from, setFrom] = useState('');
     const [to, setTo] = useState('');
@@ -13,8 +13,8 @@ export default function DateModal({setAllTrips}) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleSave = async () => {
-        await tripService.addTrip({from, to});
-        const refetchAllTrips = await tripService.getTrips({withinPeriod: true});
+        await tripService.addTrip({from, to, traveler});
+        const refetchAllTrips = await tripService.getTrips({withinPeriod: true, traveler});
         setAllTrips(refetchAllTrips)
         handleClose();
     }
@@ -62,6 +62,5 @@ export default function DateModal({setAllTrips}) {
                 </Modal.Footer>
             </Modal>
         </>
-    )
-        ;
+    );
 }

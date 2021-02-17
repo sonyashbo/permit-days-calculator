@@ -1,8 +1,8 @@
 import tripService from '../services/tripService'
 import moment from "moment";
 
-export const calculateDays = async () => {
-    const trips = await tripService.getTrips({withinPeriod: true});
+export const calculateDays = async ({traveler}) => {
+    const trips = await tripService.getTrips({withinPeriod: true, traveler});
     let dates = [];
     trips.forEach(trip => {
         const days = getDaysBetweenDates(trip.from, trip.to);

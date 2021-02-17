@@ -3,17 +3,16 @@ import {Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
 import moment from "moment";
 import tripService from "../services/tripService";
 
-export const Trips = ({trips, setAllTrips}) => {
+export const Trips = ({trips, setAllTrips, traveler}) => {
     const [showTripsForPeriod, setShowTripsForPeriod] = useState(true);
 
     useEffect(async () => {
-        const refetchedTrips = await tripService.getTrips({withinPeriod: showTripsForPeriod});
+        const refetchedTrips = await tripService.getTrips({withinPeriod: showTripsForPeriod, traveler});
         setAllTrips(refetchedTrips);
     }, [showTripsForPeriod])
 
     const onTripViewSwitch = async() => {
         setShowTripsForPeriod(!showTripsForPeriod);
-
     }
 
     const tableName = showTripsForPeriod ? 'Trips for the last 180 days:' : 'Trips for all time';
